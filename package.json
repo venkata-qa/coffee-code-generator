@@ -1,0 +1,29 @@
+{
+  "name": "cypress-starter-kit",
+  "version": "10.1.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "cypress": "cypress run --e2e",
+    "cypress:open": "cypress open --e2e"
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    ""
+  ],
+  "author": "James Sheasby Thomas (@RightSaidJames)",
+  "license": "MIT",
+  "devDependencies": {
+    "cypress": "^11.2.0"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "nodemailer": "^6.10.0"
+  }
+}
