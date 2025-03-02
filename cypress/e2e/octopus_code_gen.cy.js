@@ -36,29 +36,32 @@ describe('Activate Octopus Coffee Codes', () => {
       cy.visit('https://octopus.energy/login/?country=GB');
 
       cy.get('body').then(($body) => {
+        // Check if the modal is present in the DOM
         if ($body.find('#countryModal').length > 0) {
           cy.log('🌍 Detected country selection modal, checking visibility...');
       
-          cy.get('#countryModal').then(($modal) => {
+          // Wait for the modal to be present, then check visibility
+          cy.get('#countryModal', { timeout: 5000 }).then(($modal) => {
             if ($modal.is(':visible')) {  // Check if it's actually visible
               cy.log('✅ Country modal is visible, clicking "No thanks"...');
               
-              // Click "No thanks" by button text
-              cy.contains('button', 'No thanks').should('be.visible').click();
+              // Click "No thanks" button
+              cy.contains('button', 'No thanks').should('be.visible').click({ force: true });
       
               // Ensure modal disappears before proceeding
-              cy.get('#countryModal').should('not.exist');
-
-              cy.log('⏳ Modal detected and closed');
+              cy.get('#countryModal', { timeout: 5000 }).should('not.exist');
+              cy.log('✅ Country modal closed, proceeding with login...');
             } else {
               cy.log('⏳ Modal detected but is hidden, skipping...');
             }
           });
+      
         } else {
-          cy.log('✅ No country selection modal detected, proceeding...');
+          cy.log('✅ No country selection modal detected, continuing...');
         }
       });
       
+          
       // Log in using the account credentials
       cy.get('#id_username').clear().type(email);
 
