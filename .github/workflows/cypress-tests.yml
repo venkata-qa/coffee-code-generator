@@ -35,4 +35,4 @@ jobs:
           echo "HARI_PASSWORD=${{ secrets.HARI_PASSWORD }}" >> .env
 
       - name: 🧪 Run Cypress Tests
-        run: npx cypress run --spec cypress/e2e/data_driven_octopus.cy.js
+        run: npx cypress run --spec cypress/e2e/octopus_code_gen.cy.js
