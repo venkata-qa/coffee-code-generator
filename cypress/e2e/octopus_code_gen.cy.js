@@ -19,8 +19,6 @@ describe('Activate Octopus Coffee Codes', () => {
     });
   });
 
-
-
   it('Should activate Café Nero offer and send QR code', () => {
     // Loop through each account
       // cy.wrap(accounts).each((account) => {
@@ -36,6 +34,29 @@ describe('Activate Octopus Coffee Codes', () => {
         }
   
       cy.visit('https://octopus.energy/login/?country=GB');
+
+      cy.get('body').then(($body) => {
+        if ($body.find('#countryModal').length > 0) {
+          cy.log('🌍 Detected country selection modal, checking visibility...');
+      
+          cy.get('#countryModal').then(($modal) => {
+            if ($modal.is(':visible')) {  // Check if it's actually visible
+              cy.log('✅ Country modal is visible, clicking "No thanks"...');
+              
+              // Click "No thanks" by button text
+              cy.contains('button', 'No thanks').should('be.visible').click();
+      
+              // Ensure modal disappears before proceeding
+              cy.get('#countryModal').should('not.exist');
+            } else {
+              cy.log('⏳ Modal detected but is hidden, skipping...');
+            }
+          });
+        } else {
+          cy.log('✅ No country selection modal detected, proceeding...');
+        }
+      });
+      
 
       // Log in using the account credentials
       cy.get('#id_username').clear().type(email);
