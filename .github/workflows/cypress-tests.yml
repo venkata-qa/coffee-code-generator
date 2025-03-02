@@ -37,8 +37,17 @@ jobs:
       - name: 🧪 Run Cypress Tests
         run: npm run cypress
 
+   
       - name: 📸 Upload QR Code Screenshots as Artifacts
+        if: always()  # Ensures this runs even if Cypress fails
         uses: actions/upload-artifact@v4
         with:
           name: qr-code-screenshots
           path: cypress/screenshots/
+   
+   
+      # - name: 📸 Upload QR Code Screenshots as Artifacts
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: qr-code-screenshots
+      #     path: cypress/screenshots/

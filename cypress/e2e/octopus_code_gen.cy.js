@@ -39,7 +39,16 @@ describe('Activate Octopus Coffee Codes', () => {
 
       // Log in using the account credentials
       cy.get('#id_username').clear().type(email);
-      cy.get('#id_password').clear().type(password);
+
+      cy.get('#id_password', { timeout: 10000 })
+      .should('be.visible')
+      .should('not.be.disabled')
+      .click()
+      .clear()
+      .type(password, { log: false });
+
+
+      // cy.get('#id_password').clear().type(password);
       // cy.get('#id_password').clear().type(password, { log: false });
 
       cy.screenshot('after-login'); // Screenshot after entering credentials
