@@ -39,8 +39,8 @@ describe('Activate Octopus Coffee Codes', () => {
 
       // Log in using the account credentials
       cy.get('#id_username').clear().type(email);
-      // cy.get('#id_password').clear().type(password);
-      cy.get('#id_password').clear().type(password, { log: false });
+      cy.get('#id_password').clear().type(password);
+      // cy.get('#id_password').clear().type(password, { log: false });
 
       cy.get('#loginForm > div.form-group > button').click();
       // Navigate to Octoplus rewards
