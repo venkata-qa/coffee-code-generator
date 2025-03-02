@@ -3,10 +3,10 @@ accounts:
     email: "kvbalasatish@gmail.com"
     password: "Platform@21"
 
-  # - name: "User2"
-  #   email: "user2@gmail.com"
-  #   password: "Password2"
+  - name: "Nimi"
+    email: "nirmala.chaliki@gmail.com"
+    password: "Test12341!"
 
-  # - name: "User3"
-  #   email: "user3@gmail.com"
-  #   password: "Password3"
+  - name: "Hari"
+    email: "hariteja.uk@gmail.com"
+    password: "HARIteja@07"

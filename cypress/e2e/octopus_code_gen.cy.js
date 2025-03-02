@@ -71,6 +71,14 @@ describe('Activate Octopus Coffee Codes', () => {
           cy.log(`❌ Email failed for ${name}: ${result.message}`);
         }
       });
+
+      cy.get("#logout-form > button").click();
+
+      // // Clear cookies for all domains
+      // cy.clearAllCookies(); 
+
+      // // Verify all cookies are cleared
+      // cy.getAllCookies().should('be.empty');
     });
   });
 });
