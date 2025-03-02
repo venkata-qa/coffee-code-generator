@@ -1,14 +1,14 @@
-name: Run Cypress Tests & Send Email
+name: Cafe Neuro Code Generator
 
 on:
   push:
     branches:
-      - data-driven # Runs on push to the main branch
+      - ambi # Runs on push to the main branch
   pull_request:
     branches:
-      - data-driven  # Runs on pull requests to main
+      - ambi  # Runs on pull requests to main
   schedule:
-    - cron: "0 8 * * *" # Runs daily at 8 AM UTC (adjust as needed)
+    - cron: '0 5 * * 1' # Runs at 5:00 AM UTC every Monday (6:00 AM UK time)
 
 jobs:
   cypress-run:
