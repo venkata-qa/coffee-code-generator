@@ -35,7 +35,7 @@ describe('Activate Octopus Coffee Codes', () => {
           throw new Error(`❌ Password not found for ${name}. Make sure it's set in .env`);
         }
   
-      cy.visit('https://octopus.energy/login/');
+      cy.visit('https://octopus.energy/login/?country=GB');
 
       // Log in using the account credentials
       cy.get('#id_username').clear().type(email);
