@@ -1,7 +1,7 @@
 const dayjs = require('dayjs'); // For date formatting
 const yaml = require('js-yaml');
 
-describe('Activate Octopus Offer and Save to Simplenote', () => {
+describe('Activate Octopus Coffee Codes', () => {
   let accounts;
 
   // Load accounts from YAML fixture
