@@ -21,7 +21,7 @@ describe('Activate Octopus Coffee Codes', () => {
 
 
 
-  it('Should activate Café Nero offer and send QR code', { retries: 3 }, () => {
+  it('Should activate Café Nero offer and send QR code', () => {
     // Loop through each account
       // cy.wrap(accounts).each((account) => {
       // const { email, password, name } = account; // Destructure account properties
