@@ -1,6 +1,7 @@
 const { defineConfig } = require('cypress');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
+const path = require('path');
 require('dotenv').config(); // Load environment variables
 
 module.exports = defineConfig({
@@ -11,8 +12,20 @@ module.exports = defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
       on('task', {
-        sendEmail({ screenshotPath }) {
+        sendEmail({ screenshotName, screenshotsFolder, accountName }) {
           return new Promise((resolve, reject) => {
+            // Construct the full screenshot path
+            const screenshotPath = path.join(screenshotsFolder, screenshotName + '.png');
+
+            console.log("FILE PATH:", screenshotPath);
+
+            // Check if screenshot exists
+            if (!fs.existsSync(screenshotPath)) {
+              console.log("❌ Screenshot not found:", screenshotPath);
+              return resolve({ success: false, message: "Screenshot not found" });
+            }
+
+            // Create email transporter
             let transporter = nodemailer.createTransport({
               service: 'gmail', // Change to your email provider if needed
               auth: {
@@ -21,25 +34,21 @@ module.exports = defineConfig({
               }
             });
 
-            // Check if screenshot exists
-            if (!fs.existsSync(screenshotPath)) {
-              console.log("❌ Screenshot not found:", screenshotPath);
-              return resolve({ success: false, message: "Screenshot not found" });
-            }
-
+            // Email options
             let mailOptions = {
               from: process.env.EMAIL_USER,
-              to: "ambi.chaliki@gmail.com", // Change to recipient email
-              subject: "Your Claimed Hot Drinks QR Code",
-              text: "Here is your QR Code for the Hot Drinks offer.",
+              to: "kvbalasatish@gmail.com", // Change to recipient email
+              subject: `Your Claimed Hot Drinks QR Code for ${accountName}`,
+              text: `Here is your QR Code for the Hot Drinks offer for ${accountName}.`,
               attachments: [
                 {
-                  filename: 'qr-code.png',
+                  filename: screenshotName.png,
                   path: screenshotPath
                 }
               ]
             };
 
+            // Send email
             transporter.sendMail(mailOptions, (error, info) => {
               if (error) {
                 console.error("❌ Email sending failed:", error);

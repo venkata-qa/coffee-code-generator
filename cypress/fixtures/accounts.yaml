@@ -1,0 +1,12 @@
+accounts:
+  - name: "Satish"
+    email: "kvbalasatish@gmail.com"
+    password: "Platform@21"
+
+  # - name: "User2"
+  #   email: "user2@gmail.com"
+  #   password: "Password2"
+
+  # - name: "User3"
+  #   email: "user3@gmail.com"
+  #   password: "Password3"
