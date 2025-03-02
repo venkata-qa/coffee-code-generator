@@ -3,7 +3,7 @@ accounts:
     email: "kvbalasatish@gmail.com"
     env_key: "SATISH_PASSWORD"  # Reference the password via env variable
 
-  - name: "Nimi"
+  - name: "Nimmi"
     email: "nirmala.chaliki@gmail.com"
     env_key: "NIMMI_PASSWORD"  # Reference the password via env variable
 
