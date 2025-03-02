@@ -32,4 +32,4 @@ jobs:
 
       # Run Cypress tests
       - name: Run Cypress tests
-        run: npm run cypress:run
+        run: npm run cypress
