@@ -1,0 +1,4 @@
+accounts:
+  - name: "Nimmi"
+    email: "nirmala.chaliki@gmail.com"
+    env_key: "NIMMI_PASSWORD"  # Reference the password via env variable

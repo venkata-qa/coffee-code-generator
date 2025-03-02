@@ -20,7 +20,8 @@
   "author": "James Sheasby Thomas (@RightSaidJames)",
   "license": "MIT",
   "devDependencies": {
-    "cypress": "^11.2.0"
+    "cypress": "^14.1.0",
+    "js-yaml": "^4.1.0"
   },
   "dependencies": {
     "dotenv": "^16.4.7",

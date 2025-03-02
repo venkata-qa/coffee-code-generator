@@ -1,0 +1,48 @@
+name: Cafe Neuro Code Generator
+
+on:
+  workflow_dispatch:
+    inputs:
+      yaml_name:
+        description: 'Name of the YAML file to use (e.g., ambi, hari)'
+        required: true
+        default: ''
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+      
+    env:
+      YAML_NAME: ${{ github.event.inputs.yaml_name }}  # Correct reference to input
+
+    steps:
+      - name: 🚀 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          ref: code-gen  # Checkout the correct branch
+
+      - name: 🛠 Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: 📦 Install Dependencies
+        run: npm install
+
+      - name: 🌍 Create `.env` File for Environment Variables
+        run: |
+          echo "EMAIL_USER=${{ secrets.EMAIL_USER }}" >> .env
+          echo "EMAIL_PASS=${{ secrets.EMAIL_PASS }}" >> .env
+          echo "SATISH_PASSWORD=${{ secrets.SATISH_PASSWORD }}" >> .env
+          echo "NIMMI_PASSWORD=${{ secrets.NIMMI_PASSWORD }}" >> .env
+          echo "HARI_PASSWORD=${{ secrets.HARI_PASSWORD }}" >> .env
+
+      - name: 🧪 Run Code Generator Tests
+        run: npm run cypress --env YAML_NAME=$YAML_NAME
+
+      - name: 📸 Upload QR Code Screenshots as Artifacts
+        if: always()  # Ensures this runs even if Cypress fails
+        uses: actions/upload-artifact@v4
+        with:
+          name: qr-code-screenshots
+          path: cypress/screenshots/

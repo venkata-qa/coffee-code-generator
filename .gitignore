@@ -7,3 +7,5 @@ cypress/videos/
 # Files
 .DS_Store
 cypress/fixtures/auth.json
+
+.env
