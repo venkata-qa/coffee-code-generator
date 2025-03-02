@@ -1,15 +1,6 @@
 name: Cafe Neuro Code Generator
 
 on:
-  push:
-    branches:
-      - code-gen # Runs on push to the main branch
-  pull_request:
-    branches:
-      - code-gen  # Runs on pull requests to main
-  schedule:
-    - cron: '0 5 * * 1' # Runs at 5:00 AM UTC every Monday (6:00 AM UK time)
-
   workflow_dispatch:
     inputs:
       yaml_name: # Pass only the name (e.g., ambi or hari)
