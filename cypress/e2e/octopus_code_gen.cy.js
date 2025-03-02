@@ -1,8 +1,16 @@
 const dayjs = require('dayjs'); // For date formatting
 const yaml = require('js-yaml');
+require('dotenv').config(); // Load environment variables
 
 describe('Activate Octopus Coffee Codes', () => {
   let accounts;
+
+
+  beforeEach(() => {
+    // Intercept and suppress Google Analytics requests
+    cy.intercept('https://www.google-analytics.com/**', {}).as('googleAnalytics');
+    cy.intercept('https://www.google.com/pagead/**', {}).as('googleAds');
+  });
 
   // Load accounts from YAML fixture
   before(() => {
@@ -11,30 +19,34 @@ describe('Activate Octopus Coffee Codes', () => {
     });
   });
 
+
+
   it('Should activate Café Nero offer and send QR code', () => {
     // Loop through each account
-    accounts.forEach((account) => {
-      const { email, password, name } = account; // Destructure account properties
+      // cy.wrap(accounts).each((account) => {
+      // const { email, password, name } = account; // Destructure account properties
 
+      cy.wrap(accounts).each((account) => {
+        const { email, name, env_key } = account; // Destructure account properties
+
+        const password = Cypress.env(env_key); // Retrieve password securely
+
+        if (!password) {
+          throw new Error(`❌ Password not found for ${name}. Make sure it's set in .env`);
+        }
+  
       cy.visit('https://octopus.energy/login/');
 
       // Log in using the account credentials
       cy.get('#id_username').clear().type(email);
-      cy.get('#id_password').clear().type(password);
+      // cy.get('#id_password').clear().type(password);
+      cy.get('#id_password').clear().type(password, { log: false });
+
       cy.get('#loginForm > div.form-group > button').click();
-
-      cy.wait(9000);
-
       // Navigate to Octoplus rewards
       cy.get("a[href*='octoplus'] button").should('be.visible').click();
-
-      cy.wait(9000);
-
       // Navigate to partner offers
       cy.get("a[href*='octoplus/partner/offers']").should('be.visible').click();
-
-      cy.wait(9000);
-
       // Find the "Claim Reward" button within the selected card
       cy.contains('h3', 'hot or cold drink').parent().parent().within(() => {
         cy.get('a[href*="/octoplus/partner/rewards/"]').then(($button) => {
@@ -46,19 +58,12 @@ describe('Activate Octopus Coffee Codes', () => {
           }
         });
       });
-
-      cy.wait(9000); // Wait for offer page to load
-
       // Create dynamic screenshot name
       const timestamp = dayjs().format('YYYY-MM-DD-HH');
       const screenshotName = `${name}_${timestamp}`;
       const screenshotsFolder = 'cypress/screenshots'; // Screenshots folder
-
       // Take a screenshot of the QR code
       cy.get('#barcode-wrapper').screenshot(screenshotName);
-
-      cy.wait(9000); // Wait for offer page to load
-
       // Send Email with Screenshot
       cy.task('sendEmail', { 
         screenshotName, 
@@ -73,6 +78,10 @@ describe('Activate Octopus Coffee Codes', () => {
       });
 
       cy.get("#logout-form > button").click();
+
+      cy.wait(3000);
+
+      cy.get(".global-header__login").should("be.visible");
 
       // // Clear cookies for all domains
       // cy.clearAllCookies(); 

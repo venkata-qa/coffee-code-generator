@@ -1,35 +1,38 @@
-name: Cypress Tests
+name: Run Cypress Tests & Send Email
 
 on:
   push:
     branches:
-      - data-driven # Trigger on push to the main branch
+      - data-driven # Runs on push to the main branch
   pull_request:
     branches:
-      - data-driven # Trigger on pull requests to the main branch
+      - data-driven  # Runs on pull requests to main
   schedule:
-    # Run at 8:00 AM UTC every Monday
-    - cron: '0 8 * * 1'
+    - cron: "0 8 * * *" # Runs daily at 8 AM UTC (adjust as needed)
 
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
 
     steps:
-      # Check out the repository
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - name: 🚀 Checkout Repository
+        uses: actions/checkout@v4
 
-      # Set up Node.js
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - name: 🛠 Install Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: 16 # Use the Node.js version you need
+          node-version: '18'
 
-      # Install dependencies
-      - name: Install dependencies
+      - name: 📦 Install Dependencies
         run: npm install
 
-      # Run Cypress tests
-      - name: Run Cypress tests
-        run: npm run cypress
+      - name: 🌍 Create `.env` File for Environment Variables
+        run: |
+          echo "EMAIL_USER=${{ secrets.EMAIL_USER }}" >> .env
+          echo "EMAIL_PASS=${{ secrets.EMAIL_PASS }}" >> .env
+          echo "SATISH_PASSWORD=${{ secrets.SATISH_PASSWORD }}" >> .env
+          echo "NIMI_PASSWORD=${{ secrets.NIMI_PASSWORD }}" >> .env
+          echo "HARI_PASSWORD=${{ secrets.HARI_PASSWORD }}" >> .env
+
+      - name: 🧪 Run Cypress Tests
+        run: npx cypress run --spec cypress/e2e/data_driven_octopus.cy.js

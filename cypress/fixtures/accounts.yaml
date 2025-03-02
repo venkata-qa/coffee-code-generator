@@ -1,12 +1,12 @@
 accounts:
   - name: "Satish"
     email: "kvbalasatish@gmail.com"
-    password: "Platform@21"
+    env_key: "SATISH_PASSWORD"  # Reference the password via env variable
 
   - name: "Nimi"
     email: "nirmala.chaliki@gmail.com"
-    password: "Test12341!"
+    env_key: "NIMMI_PASSWORD"  # Reference the password via env variable
 
   - name: "Hari"
     email: "hariteja.uk@gmail.com"
-    password: "HARIteja@07"
+    env_key: "HARI_PASSWORD"  # Reference the password via env variable
