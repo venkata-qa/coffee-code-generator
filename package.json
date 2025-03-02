@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "cypress": "cypress run --e2e",
+    "cypress": "cypress run --e2e --env YAML_NAME=$YAML_NAME",
     "cypress:open": "cypress open --e2e"
   },
   "repository": {

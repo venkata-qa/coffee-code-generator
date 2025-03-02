@@ -14,7 +14,6 @@ describe('Activate Octopus Coffee Codes', () => {
 
   // Load accounts from YAML fixture
   before(() => {
-    
     const yamlName = Cypress.env('YAML_NAME'); // Get the YAML name from environment variable
     const yamlFile = `${yamlName}.yaml`; // Append .yaml to the name
 
