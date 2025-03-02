@@ -44,7 +44,7 @@ module.exports = defineConfig({
             // Email options
             let mailOptions = {
               from: process.env.EMAIL_USER,
-              to: "kvbalasatish@gmail.com", // Change to recipient email
+              to: "ambi.chaliki@gmail.com", // Change to recipient email
               subject: `${accountName} - Cafe Neuro Hot Drinks QR Code`,
               text: `Here is your QR Code for the Hot Drinks offer for ${accountName}.`,
               attachments: [

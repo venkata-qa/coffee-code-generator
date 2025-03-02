@@ -34,7 +34,7 @@ jobs:
           echo "NIMMI_PASSWORD=${{ secrets.NIMMI_PASSWORD }}" >> .env
           echo "HARI_PASSWORD=${{ secrets.HARI_PASSWORD }}" >> .env
 
-      - name: 🧪 Run Cypress Tests
+      - name: 🧪 Run Code Generator Tests
         run: npm run cypress
 
    
