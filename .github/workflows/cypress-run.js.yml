@@ -1,29 +1,37 @@
-name: Run Cypress Tests
+name: Run Cypress Tests Every Monday Morning
 
 on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+  schedule:
+    # Run at 8:00 AM UTC every Monday
+    - cron: '0 8 * * 1'
 
 jobs:
   cypress-run:
-    runs-on: ubuntu-20.04
-    # Cypress Docker image with Chrome v91
-    # and Firefox v89 pre-installed
-    container: cypress/browsers:node14.19.0-chrome100-ff99-edge
+    runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v1
-      - uses: cypress-io/github-action@v4
+      # Check out the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Set up Node.js
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          browser: chrome
-      - uses: actions/upload-artifact@v1
-        if: failure()
-        with:
-          name: cypress-screenshots
-          path: cypress/screenshots
-      - uses: actions/upload-artifact@v1
-        if: always()
-        with:
-          name: cypress-videos
-          path: cypress/videos
+          node-version: 16 # Use the Node.js version you need
+
+      # Install dependencies
+      - name: Install dependencies
+        run: npm install
+
+      # Run Cypress tests
+      - name: Run Cypress tests
+        run: npx cypress run
+
+      # # Optionally, send email with test results
+      # - name: Send email with test results
+      #   env:
+      #     EMAIL_USER: ${{ secrets.EMAIL_USER }}
+      #     EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
+      #   run: |
+      #     node scripts/send-email.js
