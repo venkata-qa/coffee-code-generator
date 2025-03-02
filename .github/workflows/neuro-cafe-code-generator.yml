@@ -18,8 +18,6 @@ jobs:
     steps:
       - name: 🚀 Checkout Repository
         uses: actions/checkout@v4
-        with:
-          ref: code-gen  # Checkout the correct branch
 
       - name: 🛠 Install Node.js
         uses: actions/setup-node@v4
