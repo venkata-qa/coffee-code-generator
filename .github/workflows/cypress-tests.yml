@@ -31,7 +31,7 @@ jobs:
           echo "EMAIL_USER=${{ secrets.EMAIL_USER }}" >> .env
           echo "EMAIL_PASS=${{ secrets.EMAIL_PASS }}" >> .env
           echo "SATISH_PASSWORD=${{ secrets.SATISH_PASSWORD }}" >> .env
-          echo "NIMMI_PASSWORD=${{ secrets.NIMI_PASSWORD }}" >> .env
+          echo "NIMMI_PASSWORD=${{ secrets.NIMMI_PASSWORD }}" >> .env
           echo "HARI_PASSWORD=${{ secrets.HARI_PASSWORD }}" >> .env
 
       - name: 🧪 Run Cypress Tests
