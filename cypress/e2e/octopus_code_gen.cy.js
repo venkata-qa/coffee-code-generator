@@ -21,7 +21,7 @@ describe('Activate Octopus Coffee Codes', () => {
 
 
 
-  it('Should activate Café Nero offer and send QR code', () => {
+  it('Should activate Café Nero offer and send QR code', { retries: 3 }, () => {
     // Loop through each account
       // cy.wrap(accounts).each((account) => {
       // const { email, password, name } = account; // Destructure account properties
@@ -61,7 +61,11 @@ describe('Activate Octopus Coffee Codes', () => {
       // Create dynamic screenshot name
       const timestamp = dayjs().format('YYYY-MM-DD-HH');
       const screenshotName = `${name}_${timestamp}`;
-      const screenshotsFolder = 'cypress/screenshots'; // Screenshots folder
+      // const screenshotsFolder = 'cypress/screenshots/'; // Screenshots folder
+
+      const screenshotsFolder = `cypress/screenshots/${Cypress.spec.name}`;
+
+
       // Take a screenshot of the QR code
       cy.get('#barcode-wrapper').screenshot(screenshotName);
       // Send Email with Screenshot

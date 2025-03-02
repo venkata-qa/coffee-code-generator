@@ -69,6 +69,7 @@ module.exports = defineConfig({
       });
       return config; // Make sure to return config after modifying it
     },
+    // retries: 2,
     baseUrl: 'https://octopus.energy/',
   },
 });
