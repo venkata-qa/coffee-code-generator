@@ -48,6 +48,8 @@ describe('Activate Octopus Coffee Codes', () => {
       
               // Ensure modal disappears before proceeding
               cy.get('#countryModal').should('not.exist');
+
+              cy.log('⏳ Modal detected and closed');
             } else {
               cy.log('⏳ Modal detected but is hidden, skipping...');
             }
@@ -57,11 +59,11 @@ describe('Activate Octopus Coffee Codes', () => {
         }
       });
       
-
       // Log in using the account credentials
       cy.get('#id_username').clear().type(email);
 
       cy.get('#id_password', { timeout: 10000 })
+
       .should('be.visible')
       .should('not.be.disabled')
       .click()
