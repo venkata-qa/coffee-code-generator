@@ -10,9 +10,19 @@ on:
   schedule:
     - cron: '0 5 * * 1' # Runs at 5:00 AM UTC every Monday (6:00 AM UK time)
 
+  workflow_dispatch:
+    inputs:
+      yaml_name: # Pass only the name (e.g., ambi or hari)
+        description: 'Name of the YAML file to use (e.g., ambi, hari)'
+        required: true
+        default: ''
+
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
+      
+    env:
+      YAML_NAME: ${{ inputs.yaml_name }} # Pass the input to the environment variable
 
     steps:
       - name: 🚀 Checkout Repository
@@ -35,9 +45,8 @@ jobs:
           echo "HARI_PASSWORD=${{ secrets.HARI_PASSWORD }}" >> .env
 
       - name: 🧪 Run Code Generator Tests
-        run: npm run cypress
-
-   
+        run: npm run cypress --env YAML_NAME=$YAML_NAME
+        
       - name: 📸 Upload QR Code Screenshots as Artifacts
         if: always()  # Ensures this runs even if Cypress fails
         uses: actions/upload-artifact@v4

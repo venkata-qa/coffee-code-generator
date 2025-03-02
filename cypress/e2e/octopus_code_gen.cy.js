@@ -14,10 +14,12 @@ describe('Activate Octopus Coffee Codes', () => {
 
   // Load accounts from YAML fixture
   before(() => {
-    cy.fixture('accounts.yaml').then((yamlText) => {
+    const yamlName = Cypress.env('YAML_NAME'); // Get the YAML name from environment variable
+    const yamlFile = `${yamlName}.yaml`; // Append .yaml to the name
+    // Load accounts from the specified YAML file
+    cy.fixture(yamlFile).then((yamlText) => {
       accounts = yaml.load(yamlText).accounts;
     });
-  });
 
   it('Should activate Café Nero offer and send QR code', () => {
     // Loop through each account
