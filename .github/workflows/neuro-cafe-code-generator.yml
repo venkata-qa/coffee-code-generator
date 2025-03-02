@@ -3,10 +3,10 @@ name: Cafe Neuro Code Generator
 on:
   push:
     branches:
-      - ambi # Runs on push to the main branch
+      - hari # Runs on push to the main branch
   pull_request:
     branches:
-      - ambi  # Runs on pull requests to main
+      - hari  # Runs on pull requests to main
   schedule:
     - cron: '0 5 * * 1' # Runs at 5:00 AM UTC every Monday (6:00 AM UK time)
 
