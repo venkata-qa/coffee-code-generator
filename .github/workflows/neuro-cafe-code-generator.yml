@@ -3,7 +3,7 @@ name: Cafe Neuro Code Generator
 on:
   workflow_dispatch:
     inputs:
-      yaml_name: # Pass only the name (e.g., ambi or hari)
+      yaml_name:
         description: 'Name of the YAML file to use (e.g., ambi, hari)'
         required: true
         default: ''
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
       
     env:
-      YAML_NAME: ${{ inputs.yaml_name }} # Pass the input to the environment variable
+      YAML_NAME: ${{ github.event.inputs.yaml_name }}  # Correct reference to input
 
     steps:
       - name: 🚀 Checkout Repository
@@ -44,10 +44,3 @@ jobs:
         with:
           name: qr-code-screenshots
           path: cypress/screenshots/
-   
-   
-      # - name: 📸 Upload QR Code Screenshots as Artifacts
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: qr-code-screenshots
-      #     path: cypress/screenshots/
