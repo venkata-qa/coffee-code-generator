@@ -35,6 +35,8 @@ describe('Activate Octopus Coffee Codes', () => {
   
       cy.visit('https://octopus.energy/login/?country=GB');
 
+      cy.wait(5000);
+
       cy.get('body').then(($body) => {
         // Check if the modal is present in the DOM
         if ($body.find('#countryModal').length > 0) {
@@ -46,8 +48,12 @@ describe('Activate Octopus Coffee Codes', () => {
               cy.log('✅ Country modal is visible, clicking "No thanks"...');
               
               // Click "No thanks" button
-              cy.contains('button', 'No thanks').should('be.visible').click({ force: true });
-      
+              cy.contains('button', 'No thanks')
+              .should('be.visible')
+              .should('not.be.disabled')
+              .wait(1000) // ⏳ Wait a bit for animations or transitions
+              .click({ force: true });
+
               // Ensure modal disappears before proceeding
               cy.get('#countryModal', { timeout: 5000 }).should('not.exist');
               cy.log('✅ Country modal closed, proceeding with login...');
