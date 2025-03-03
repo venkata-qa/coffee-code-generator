@@ -103,8 +103,8 @@ describe('Activate Octopus Coffee Codes', () => {
       // Navigate to partner offers
       cy.get("a[href*='octoplus/partner/offers']").should('be.visible').click();
       // Find the "Claim Reward" button within the selected card
-      cy.contains('h3', 'Pick one free drink on us').parent().parent().within(() => {
-        cy.get('a[href*="octoplus/partner/offer-group"]').then(($button) => {
+      cy.contains('h3', 'hot or cold drink').parent().parent().within(() => {
+        cy.get('a[href*="/octoplus/partner/rewards/"]').then(($button) => {
           if ($button.length > 0 && !$button.hasClass('disabled')) {
             cy.wrap($button).click();
             cy.log(`✅ Claimed the Hot Drinks Offer for ${name}.`);
